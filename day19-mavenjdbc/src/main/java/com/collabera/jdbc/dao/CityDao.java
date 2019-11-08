@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,10 +26,10 @@ public class CityDao {
 	 * @throws FileNotFoundException 
 	 * @throws SQLException */
 	public City findById(Integer id) throws FileNotFoundException, IOException, SQLException {
-		if (cache.containsKey(id)) {
-			return cache.get(id);
-		}
-		List<City> list = find("WHERE id = "  + id);
+//		if (cache.containsKey(id)) {
+//			return cache.get(id);
+//		}
+		List<City> list = find("WHERE ID = "  + id);
 		return list.get(0);
 	}
 
@@ -46,7 +47,8 @@ public class CityDao {
 
 		List<City> list = new ArrayList<City>();
 		Statement stmt = JdbcUtils.getConnection().createStatement();
-		String sqlquery = "SELECT * FROM cit y" + query;
+		String sqlquery = "SELECT * FROM city" + query;
+		
 		try {
 			logger.debug("executiy query: " + sqlquery);
 			ResultSet rs = stmt.executeQuery(sqlquery);
@@ -55,7 +57,7 @@ public class CityDao {
 				list.add(c);
 			} 
 		}catch (SQLException sqle) {
-			logger.error("error executing: " + sqlquery, sqle);
+			logger.error("error executing: ", sqle);
 		} finally {
 			if(stmt!= null) 
 				try {
@@ -63,14 +65,10 @@ public class CityDao {
 				} catch (SQLException e) {
 					/*ignore it */
 				}
-			return list;
 		}
+		return list;
 	}
 
-	public String sanitize(String name) {
-		return "";
-	}
-	
 	private City resultSetToCity(ResultSet rs) throws SQLException {
 		City city = null;
 		

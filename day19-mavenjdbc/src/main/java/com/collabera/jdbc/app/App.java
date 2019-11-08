@@ -76,5 +76,14 @@ public class App
 		} catch (Exception e) {
 			log.error(e.getMessage());
 		}
+		
+		// TRY AND DELETE
+		try {
+			String code = "XYZ";
+			boolean count = countryDao.delete(code);
+			log.info("SUCCESS: Delete country: " + code); 
+		} catch (Exception e) {
+			
+		}
 	}
 }

@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import com.collabera.jdbc.model.City;
 import com.collabera.jdbc.model.Country;
 import com.collabera.jdbc.utils.JdbcUtils;
+import com.sun.tools.javac.util.Log;
 
 public class CountryDao {
 	private static final Logger logger = Logger.getLogger(CountryDao.class.getName());
@@ -55,8 +56,52 @@ public class CountryDao {
 				} catch (SQLException e) {
 					/*ignore it */
 				}
-			return list;
 		}
+		return list;
+	}
+
+	public boolean delete(String code) throws SQLException {
+		if (code == null) {
+			return false;
+		}
+
+		PreparedStatement statement = JdbcUtils.getConnection().
+				prepareStatement("DELETE FROM Country where code = ?");
+		statement.setString(1,  code);
+
+		int count = 0;
+		try {
+			count = statement.executeUpdate();
+		} catch (SQLException sqle) {
+			logger.error("error executing delete for code: " + code);
+		} finally {
+			statement.close();
+		}
+		
+		return count > 0;
+	}
+	
+	public boolean insert (Country country) throws SQLException {
+		if(country == null) {
+			return false;
+		}
+		PreparedStatement statement = JdbcUtils.getConnection()
+				.prepareStatement("lNSERT INTO country(code, name, continent, region) VALUES(?, ?, ?, ?)");
+			
+		statement.setString(1,  country.getCode());
+		statement.setString(2,  country.getName());
+		statement.setString(3,  country.getContinent());
+		statement.setString(4, country.getRegion());
+		
+		int count = 0;
+		try {
+			count = statement.executeUpdate();
+		} catch (SQLException sqle) {
+			logger.error("error executing insert for country: " + country);
+		} finally {
+			statement.close();
+		}
+		return count > 0;
 	}
 
 	private Country resultSetToCountry(ResultSet rs) throws SQLException {
