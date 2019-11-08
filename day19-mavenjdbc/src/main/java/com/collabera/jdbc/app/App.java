@@ -1,4 +1,4 @@
-package com.collabera.day19_mavenjdbc;
+package com.collabera.jdbc.app;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -7,8 +7,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Properties;
+import java.util.List;
 
 import org.apache.log4j.Logger;
+
+import com.collabera.jdbc.dao.CityDao;
+import com.collabera.jdbc.dao.CountryDao;
+import com.collabera.jdbc.model.City;
+import com.collabera.jdbc.model.Country;
+
 
 public class App 
 {
@@ -44,6 +51,30 @@ public class App
 		} catch (Exception ex) {
 			//System.out.println(ex.getMessage());
 			log.error(ex.getMessage());
+		}
+		
+		//TEST CITYDAO
+		log.info("Testing CityDao...");
+		CityDao cityDao = new CityDao();
+		try {
+			List<City> cities = cityDao.findByName("Miami");
+			if(cities.size() > 0) {
+				log.info(cities.get(0));
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
+		}
+		
+		// TEST COUNTRYDAO
+		log.info("Testing CountryDao...");
+		CountryDao countryDao = new CountryDao();
+		try {
+			List<Country> countries = countryDao.findByName("Congo");
+			if(countries.size() > 0) {
+				log.info(countries.get(0));
+			}
+		} catch (Exception e) {
+			log.error(e.getMessage());
 		}
 	}
 }
