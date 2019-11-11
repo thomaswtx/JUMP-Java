@@ -86,11 +86,11 @@ public class CountryDao {
 			return false;
 		}
 		PreparedStatement statement = JdbcUtils.getConnection()
-				.prepareStatement("lNSERT INTO country(code, name, continent, region) VALUES(?, ?, ?, ?)");
+				.prepareStatement("INSERT INTO country(code, name, continent, region) VALUES(?, ?, ?, ?);");
 			
-		statement.setString(1,  country.getCode());
-		statement.setString(2,  country.getName());
-		statement.setString(3,  country.getContinent());
+		statement.setString(1, country.getCode());
+		statement.setString(2, country.getName());
+		statement.setString(3, country.getContinent());
 		statement.setString(4, country.getRegion());
 		
 		int count = 0;

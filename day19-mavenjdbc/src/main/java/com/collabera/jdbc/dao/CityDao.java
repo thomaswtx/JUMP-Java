@@ -47,7 +47,7 @@ public class CityDao {
 
 		List<City> list = new ArrayList<City>();
 		Statement stmt = JdbcUtils.getConnection().createStatement();
-		String sqlquery = "SELECT * FROM city" + query;
+		String sqlquery = "SELECT * FROM city " + query;
 		
 		try {
 			logger.debug("executiy query: " + sqlquery);
