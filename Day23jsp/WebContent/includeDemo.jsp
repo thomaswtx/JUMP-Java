@@ -8,10 +8,10 @@
 </head>
 <body>
 	
-	<%@ include file = "header.jsp" %>
+	<jsp:include file = "header.jsp" />
 	<hr/>
 	<h2>This is main content</h2>
 	<hr/>
-	<%@ include file = "footer.jsp" %>
+	<jsp:include file = "footer.jsp" />
 </body>
 </html>
