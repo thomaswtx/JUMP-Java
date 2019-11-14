@@ -10,13 +10,18 @@ import com.collabera.model.Employee;
 public class EmployeeDao {
 	static Map<Integer, Employee> employeeMap = new TreeMap<Integer, Employee>();
 	static {
-		for(int i = 0; i < 20; i++) {
+		for(int i = 0; i < 50; i++) {
 			employeeMap.put(i, new Employee(i, "Fname" + i, "Lname" + i));
 			System.out.println("employeeMap size:" + employeeMap.size());
 		}
 	}
-	public static List<Employee> getList() {
-		return new ArrayList<Employee>(employeeMap.values());
+ 
+	public static List<Employee> getList(int pageNo, int pageSize) {
+		
+		int fromIdx = (pageNo - 1)*pageSize + 1;
+		int toIdx = (pageNo*pageSize) + 1;
+		
+		return new ArrayList<Employee>(employeeMap.values()).subList(fromIdx, toIdx);
 	}
 
 	public static boolean insert(Employee emp) {
