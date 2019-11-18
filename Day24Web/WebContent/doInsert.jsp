@@ -1,8 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@page import="com.collabera.dao.*, com.collabera.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Pagination Demo</title>
+<title>Insert title here</title>
 </head>
 <style>
 a:link, a:visited {
@@ -19,9 +22,6 @@ a:hover, a:active {
 }
 a {
 	font-size: 15px;
-	margin-left: auto;
-	margin-right: auto;
-	position: absolute;
 }
 th, td, tr {
 	padding: 5px;
@@ -44,8 +44,20 @@ div {
 }
 </style>
 <body>
-	<h1 style="text-align:center">Welcome!</h1>
-	<hr>
-	<a href="view.jsp?pageNo=1&pageSize=5">View Employees</a>
+	<%
+		int empId = Integer.parseInt(request.getParameter("id"));
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		
+		Employee emp = new Employee(empId, firstName, lastName);
+		
+		EmployeeDao.insert(emp);
+		
+		out.print("<h1>Employee: " + " " 
+					+ emp.getFirstName() + " " 
+					+ emp.getLastName() + " -Saved!</h1>");	
+	%>
+
+	<a href="index.html"> Back to Employee List!</a>
 </body>
 </html>

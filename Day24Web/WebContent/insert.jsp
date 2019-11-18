@@ -1,8 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@page import="com.collabera.dao.*, com.collabera.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Pagination Demo</title>
+<title>Add New Employee</title>
 </head>
 <style>
 a:link, a:visited {
@@ -19,9 +22,6 @@ a:hover, a:active {
 }
 a {
 	font-size: 15px;
-	margin-left: auto;
-	margin-right: auto;
-	position: absolute;
 }
 th, td, tr {
 	padding: 5px;
@@ -44,8 +44,20 @@ div {
 }
 </style>
 <body>
-	<h1 style="text-align:center">Welcome!</h1>
-	<hr>
-	<a href="view.jsp?pageNo=1&pageSize=5">View Employees</a>
+
+	<h1>Add New Employee</h1>
+	<form action="doInsert.jsp" method="POST">
+		<label>ID:</label> 
+		<input type="text" name="id" readonly value="0"><br> 
+		
+		<label>First Name:</label>
+		<input type="text" name="firstName" value=""><br>
+
+		<label>Last Name:</label> 
+		<input type="text" name="lastName" value=""><br> 
+		
+		<input type="submit" value="Submit">
+	</form>
+	
 </body>
 </html>
